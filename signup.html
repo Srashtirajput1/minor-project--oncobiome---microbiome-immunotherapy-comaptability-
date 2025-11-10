@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OncoBiome - Sign Up</title>
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ---------- Reset ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Urbanist', sans-serif;
+      background: linear-gradient(135deg, #b5e7db 0%, #eaf8f6 50%, #b6e2d3 100%);
+      color: #1a1a1a;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* ---------- Navbar ---------- */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 5%;
+      background: rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    nav .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #127c68;
+      letter-spacing: 1px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #000;
+      font-weight: 500;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    nav ul li a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0%;
+      height: 2px;
+      background: #127c68;
+      transition: width 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      color: #127c68;
+    }
+
+    nav ul li a:hover::after {
+      width: 100%;
+    }
+
+    /* ---------- Sign Up Section ---------- */
+    .signup-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: calc(100vh - 80px);
+      padding: 2rem;
+    }
+
+    .signup-card {
+      background: rgba(255, 255, 255, 0.35);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      border-radius: 20px;
+      padding: 3rem;
+      width: 100%;
+      max-width: 450px;
+      text-align: center;
+      animation: fadeIn 1.2s ease forwards;
+      transform: translateY(30px);
+      opacity: 0;
+    }
+
+    @keyframes fadeIn {
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .signup-card h2 {
+      color: #0b4f41;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .signup-card p {
+      color: #333;
+      margin-bottom: 2rem;
+    }
+
+    .signup-card input {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      margin-bottom: 1rem;
+      border: none;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.8);
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .signup-card input:focus {
+      outline: none;
+      box-shadow: 0 0 12px rgba(18, 124, 104, 0.4);
+      transform: scale(1.02);
+    }
+
+    .terms {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      color: #333;
+      margin-bottom: 1.5rem;
+      width: fit-content; /* keeps checkbox + text exact width */
+    }
+
+    .terms input[type="checkbox"] {
+      width: auto;   /* removes any stretching */
+      height: auto;  /* keeps checkbox default size */
+      cursor: pointer;
+      position: relative;
+      top: 3px;
+    }
+
+
+    .terms a {
+      color: #127c68;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .terms a:hover {
+      color: #0b4f41;
+    }
+
+    .signup-btn {
+      background: linear-gradient(135deg, #127c68, #2fb89b);
+      border: none;
+      color: #fff;
+      font-weight: 600;
+      padding: 0.9rem 2rem;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(18, 124, 104, 0.3);
+    }
+
+    .signup-btn:hover {
+      background: linear-gradient(135deg, #0b4f41, #1da283);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(18, 124, 104, 0.45);
+    }
+
+    .login-text {
+      margin-top: 1.5rem;
+      font-size: 0.95rem;
+    }
+
+    .login-text a {
+      color: #127c68;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .login-text a:hover {
+      color: #0b4f41;
+    }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 768px) {
+      nav ul {
+        gap: 1rem;
+      }
+
+      .signup-card {
+        padding: 2rem;
+      }
+
+      .signup-card h2 {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ---------- Navbar ---------- -->
+  <nav>
+    <div class="logo">OncoBiome</div>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="login.html">Login</a></li>
+      <li><a href="signup.html" class="active">Sign Up</a></li>
+      <li><a href="contact.html">Contact Us</a></li>
+    </ul>
+  </nav>
+
+  <!-- ---------- Sign Up Section ---------- -->
+  <section class="signup-container">
+    <div class="signup-card">
+      <h2>Create Your Account</h2>
+      <p>Join OncoBiome today and take control of your health journey</p>
+      <form>
+        <input type="text" placeholder="Full Name" required>
+        <input type="email" placeholder="Email Address" required>
+        <input type="password" placeholder="Password" required>
+        <input type="password" placeholder="Confirm Password" required>
+
+        <div class="terms">
+          <input type="checkbox" required>
+          <label>I agree to the <a href="#">Terms & Conditions</a></label>
+        </div>
+
+        <button type="submit" class="signup-btn">Sign Up</button>
+
+        <div class="login-text">
+          <p>Already have an account? <a href="login.html">Login here</a></p>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <script>
+    // Fade-in animation trigger
+    window.addEventListener("load", () => {
+      document.querySelector(".signup-card").style.opacity = "1";
+    });
+  </script>
+
+</body>
+</html>

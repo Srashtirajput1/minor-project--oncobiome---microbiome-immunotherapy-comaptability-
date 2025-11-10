@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OncoBiome - Contact Us</title>
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Urbanist', sans-serif;
+      background: linear-gradient(135deg, #f7fdfc, #d4f1ec);
+      color: #0b1e1d;
+      overflow-x: hidden;
+    }
+
+    /* ---------- NAVBAR ---------- */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(29, 95, 99, 0.85);
+      backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 50px;
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+      z-index: 1000;
+      transition: background 0.3s ease;
+    }
+
+    header.scrolled {
+      background: rgba(18, 70, 74, 0.95);
+    }
+
+    header h1 {
+      color: white;
+      font-weight: 700;
+      font-size: 1.6em;
+      letter-spacing: 1px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: white;
+      font-weight: 500;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    nav ul li a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: #d8f8f3;
+      transition: width 0.3s ease;
+    }
+
+    nav ul li a:hover::after {
+      width: 100%;
+    }
+
+    /* ---------- CONTACT SECTION ---------- */
+    .contact-container {
+      margin-top: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 80px 10%;
+      gap: 60px;
+      flex-wrap: wrap;
+    }
+
+    .contact-form, .contact-info {
+      background: rgba(255, 255, 255, 0.65);
+      backdrop-filter: blur(15px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+      border-radius: 25px;
+      padding: 40px;
+      transition: all 0.5s ease;
+      opacity: 0;
+      transform: translateY(50px);
+    }
+
+    .visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .contact-form {
+      flex: 1;
+      min-width: 320px;
+      max-width: 500px;
+      animation: fadeInLeft 1.5s ease;
+    }
+
+    .contact-form h2 {
+      color: #1d5f63;
+      font-size: 2em;
+      margin-bottom: 25px;
+      text-align: center;
+    }
+
+    .contact-form input, .contact-form textarea {
+      width: 100%;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      border: none;
+      border-radius: 15px;
+      background: rgba(255,255,255,0.9);
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      font-family: 'Urbanist', sans-serif;
+    }
+
+    .contact-form input:focus, .contact-form textarea:focus {
+      outline: none;
+      box-shadow: 0 0 12px #74c2b8;
+      transform: scale(1.02);
+    }
+
+    .contact-form button {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #2a7c6f, #74c2b8);
+      color: white;
+      border: none;
+      border-radius: 20px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      font-size: 1em;
+    }
+
+    .contact-form button:hover {
+      box-shadow: 0 0 20px #74c2b8;
+      transform: translateY(-3px) scale(1.03);
+    }
+
+    .contact-info {
+      flex: 1;
+      min-width: 300px;
+      max-width: 450px;
+      animation: fadeInRight 1.5s ease;
+    }
+
+    .contact-info h2 {
+      color: #1d5f63;
+      font-size: 2em;
+      margin-bottom: 25px;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 25px;
+      transition: all 0.3s ease;
+      border-radius: 15px;
+      padding: 10px;
+    }
+
+    .info-item:hover {
+      background: rgba(255,255,255,0.6);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+      transform: translateX(5px);
+    }
+
+    .info-item ion-icon {
+      font-size: 1.8em;
+      color: #2a7c6f;
+      margin-right: 15px;
+    }
+
+    .info-item span {
+      font-size: 1.05em;
+    }
+
+    @keyframes fadeInLeft {
+      from {opacity: 0; transform: translateX(-60px);}
+      to {opacity: 1; transform: translateX(0);}
+    }
+
+    @keyframes fadeInRight {
+      from {opacity: 0; transform: translateX(60px);}
+      to {opacity: 1; transform: translateX(0);}
+    }
+
+    /* ---------- SUCCESS POPUP ---------- */
+    .success-popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.8);
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 0 25px rgba(42, 124, 111, 0.4);
+      padding: 40px 50px;
+      border-radius: 25px;
+      text-align: center;
+      display: none;
+      z-index: 9999;
+      animation: popupFade 0.5s ease;
+    }
+
+    .success-popup.active {
+      display: block;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    @keyframes popupFade {
+      from {opacity: 0; transform: translate(-50%, -50%) scale(0.8);}
+      to {opacity: 1; transform: translate(-50%, -50%) scale(1);}
+    }
+
+    .success-popup h3 {
+      color: #1d5f63;
+      font-size: 1.5em;
+      margin-bottom: 10px;
+    }
+
+    /* ---------- FOOTER ---------- */
+    footer {
+      background: #0b1e1d;
+      color: white;
+      text-align: center;
+      padding: 25px 10px;
+      margin-top: 80px;
+    }
+
+    footer p {
+      margin-bottom: 10px;
+      font-size: 0.95em;
+      letter-spacing: 0.5px;
+    }
+
+    footer .socials a {
+      color: white;
+      margin: 0 8px;
+      font-size: 1.3em;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    footer .socials a:hover {
+      color: #74c2b8;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 900px) {
+      .contact-container {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header>
+    <h1>OncoBiome</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="signup.html">Sign Up</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- CONTACT SECTION -->
+  <section class="contact-container">
+    <div class="contact-form">
+      <h2>Get In Touch</h2>
+      <form id="contactForm">
+        <input type="text" placeholder="Full Name" required>
+        <input type="email" placeholder="Email Address" required>
+        <input type="text" placeholder="Subject" required>
+        <textarea rows="5" placeholder="Your Message..." required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+    </div>
+
+    <div class="contact-info">
+      <h2>Contact Information</h2>
+      <div class="info-item"><ion-icon name="call-outline"></ion-icon><span>+91 98765 43210</span></div>
+      <div class="info-item"><ion-icon name="mail-outline"></ion-icon><span>support@ocnobiome.com</span></div>
+      <div class="info-item"><ion-icon name="location-outline"></ion-icon><span>Sector 21, New Delhi, India</span></div>
+      <div class="info-item"><ion-icon name="time-outline"></ion-icon><span>Mon - Sat: 9:00 AM - 8:00 PM</span></div>
+    </div>
+  </section>
+
+  <!-- SUCCESS POPUP -->
+  <div class="success-popup" id="successPopup">
+    <h3>✅ Message Sent Successfully!</h3>
+    <p>Thank you for contacting MediCare. We'll get back to you soon.</p>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 OncoBiome. All Rights Reserved.</p>
+    <div class="socials">
+      <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
+      <a href="#"><ion-icon name="logo-instagram"></ion-icon></a>
+      <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
+    </div>
+  </footer>
+
+  <!-- ICONS -->
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+  <script>
+    // Navbar background change
+    window.addEventListener('scroll', () => {
+      document.querySelector('header').classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Scroll reveal animation
+    const elements = document.querySelectorAll('.contact-form, .contact-info');
+    const reveal = () => {
+      elements.forEach(el => {
+        const rect = el.getBoundingClientRect().top;
+        if (rect < window.innerHeight - 100) el.classList.add('visible');
+      });
+    };
+    window.addEventListener('scroll', reveal);
+    reveal();
+
+    // Form submit simulation
+    const form = document.getElementById('contactForm');
+    const popup = document.getElementById('successPopup');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      popup.classList.add('active');
+      setTimeout(() => popup.classList.remove('active'), 3000);
+      form.reset();
+    });
+  </script>
+
+</body>
+</html>

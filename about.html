@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OcnoBiome - About Us </title>
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ---------- RESET ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Urbanist', sans-serif;
+      background: #f7fdfc;
+      color: #0b1e1d;
+      overflow-x: hidden;
+    }
+
+    /* ---------- NAVBAR ---------- */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(29, 95, 99, 0.85);
+      backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 50px;
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+      z-index: 1000;
+      transition: background 0.3s ease;
+    }
+
+    header.scrolled {
+      background: rgba(18, 70, 74, 0.95);
+    }
+
+    header h1 {
+      color: white;
+      font-weight: 700;
+      font-size: 1.6em;
+      letter-spacing: 1px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+      position: relative;
+    }
+
+    nav ul li {
+      position: relative;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: white;
+      font-weight: 500;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    nav ul li a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: #d8f8f3;
+      transition: width 0.3s ease;
+    }
+
+    nav ul li a:hover::after {
+      width: 100%;
+    }
+
+    /* ---------- ABOUT POPUP ---------- */
+    .about-popup {
+      position: absolute;
+      top: 45px;
+      left: 0;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(15px);
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+      padding: 15px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-width: 200px;
+      opacity: 0;
+      transform: translateY(-6px);
+      pointer-events: none;
+      transition: opacity 220ms ease, transform 220ms ease;
+      z-index: 1100;
+    }
+
+    .about-popup.show {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .about-popup a {
+      text-decoration: none;
+      color: #0b1e1d;
+      background: rgba(255, 255, 255, 0.4);
+      padding: 8px 12px;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    .about-popup a:hover {
+      background: rgba(116, 194, 184, 0.6);
+      color: white;
+      transform: scale(1.05);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    /* ---------- SECTION STYLES ---------- */
+    section {
+      padding: 120px 10%;
+      min-height: 80vh;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 1s ease;
+    }
+
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    section h2 {
+      color: #1d5f63;
+      font-size: 2.4em;
+      margin-bottom: 20px;
+      text-align: center;
+      position: relative;
+    }
+
+    section h2::after {
+      content: '';
+      width: 80px;
+      height: 3px;
+      background: #2a7c6f;
+      display: block;
+      margin: 10px auto;
+      border-radius: 2px;
+    }
+
+    section p {
+      text-align: center;
+      font-size: 1.1em;
+      line-height: 1.7;
+      max-width: 800px;
+      margin: 0 auto;
+      color: #333;
+    }
+
+    /* ---------- TEAM & VALUES ---------- */
+    .team {
+      background: #e8f6f4;
+      border-radius: 30px;
+      padding: 100px 10%;
+    }
+
+    .team-cards {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .member {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 20px;
+      padding: 20px;
+      width: 220px;
+      text-align: center;
+      transition: all 0.4s ease;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    }
+
+    .member:hover {
+      transform: translateY(-10px) scale(1.05);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    .member img {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      margin-bottom: 10px;
+      object-fit: cover;
+    }
+
+    .member h4 {
+      margin-bottom: 5px;
+      color: #1d5f63;
+      font-weight: 600;
+    }
+
+    .member p {
+      font-size: 0.9em;
+      color: #555;
+    }
+
+    .values {
+      background: linear-gradient(120deg, #d4f1ec, #f7fdfc);
+      border-radius: 30px;
+      padding: 100px 10%;
+    }
+
+    .values-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 50px;
+    }
+
+    .value-card {
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 20px;
+      padding: 30px;
+      width: 260px;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: all 0.4s ease;
+    }
+
+    .value-card:hover {
+      transform: translateY(-8px) scale(1.05);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      background: rgba(255,255,255,0.95);
+    }
+
+    .value-card ion-icon {
+      font-size: 2em;
+      color: #1d5f63;
+      margin-bottom: 10px;
+    }
+
+    footer {
+      background: #0b1e1d;
+      color: white;
+      text-align: center;
+      padding: 25px 10px;
+    }
+
+    footer .socials a {
+      color: white;
+      margin: 0 8px;
+      font-size: 1.3em;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    footer .socials a:hover {
+      color: #74c2b8;
+    }
+
+    @media (max-width: 900px) {
+      header {padding: 15px 25px;}
+      section {padding: 100px 6%;}
+      .team-cards, .values-grid {flex-direction: column; align-items: center;}
+      .about-popup { left: auto; right: 10px; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- NAVBAR -->
+  <header>
+    <h1>OncoBiome</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li id="aboutMenu">
+          <a href="#about" id="aboutLink" aria-haspopup="true" aria-expanded="false">About</a>
+          <div class="about-popup" id="aboutPopup" role="menu" aria-hidden="true">
+            <a href="#goal">Goal</a>
+            <a href="#problem">Problem Statement</a>
+            <a href="#objectives">Objectives</a>
+            <a href="#methodology">Methodology</a>
+            <a href="#impact">Impact</a>
+            <a href="#team">Team</a>
+          </div>
+        </li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="signup.html">Sign Up</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ABOUT SECTIONS -->
+  <section id="goal">
+    <h2>Project Goal</h2>
+    <p>To develop an explainable machine learning model that classifies patient suitability for cancer immunotherapy based on gut microbiome data, providing interpretable insights into microbiota–immune interactions.</p>
+  </section>
+
+  <section id="problem">
+    <h2>Problem Statement</h2>
+    <p>Cancer immunotherapy is not effective for every patient. The gut microbiome plays a crucial role in modulating immune responses, but the relationship between specific microbes and immunotherapy success remains unclear. This project uses explainable AI to identify which patients are likely to benefit, helping doctors make more informed treatment decisions.</p>
+  </section>
+
+  <section id="objectives">
+    <h2>Objectives</h2>
+    <p>• Analyze gut microbiome and immune response data.<br>
+       • Identify microbial species influencing therapy outcomes.<br>
+       • Train explainable ML models to predict immunotherapy suitability.<br>
+       • Provide transparent and interpretable results.<br>
+       • Create a user-friendly interface for clinical interpretation.</p>
+  </section>
+
+  <section id="methodology">
+    <h2>Methodology</h2>
+    <p>1. Data Collection – Gut microbiome and clinical datasets.<br>
+       2. Preprocessing – Cleaning, normalization, and feature extraction.<br>
+       3. Model Development – Random Forest, XGBoost, and SHAP analysis.<br>
+       4. Evaluation – Accuracy, precision, recall, and ROC-AUC metrics.<br>
+       5. Explainability – Visualization of microbial and immune factors affecting predictions.</p>
+  </section>
+
+  
+
+  <section id="impact">
+    <h2>Impact</h2>
+    <p>This project contributes to precision medicine by helping clinicians understand how gut microbiota affects immunotherapy response. It supports personalized treatment decisions, reduces the risk of ineffective therapies, and provides interpretable AI insights for future medical research.</p>
+  </section>
+
+  <section class="team" id="team">
+    <h2>Our Team</h2>
+    <div class="team-cards">
+      <div class="member">
+        <img src="New folder/WhatsApp Image 2025-10-29 at 10.15.41 PM.jpeg" alt="">
+        <h4>Khushi Dubey</h4>
+        <p>225/UCF/063</p>
+      </div>
+      <div class="member">
+        <img src="New folder/WhatsApp Image 2025-10-30 at 11.08.13 AM.jpeg" alt="">
+        <h4>Pragya Tiwari</h4>
+        <p>225/UCF/084</p>
+      </div>
+      <div class="member">
+        <img src="New folder/IMG20241231_185414.jpeg" alt="">
+        <h4>Shambhavi Soumya</h4>
+        <p>225/UCF/099</p>
+      </div>
+      <div class="member">
+        <img src="New folder/WhatsApp Image 2025-10-30 at 11.06.50 AM (1).jpeg" alt="">
+        <h4>Srashti Rajput</h4>
+        <p>225/UCF/106</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 OncoBiome. All Rights Reserved.</p>
+    <div class="socials">
+      <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
+      <a href="#"><ion-icon name="logo-instagram"></ion-icon></a>
+      <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
+    </div>
+  </footer>
+
+  <!-- ICONS -->
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+  <script>
+    // Navbar scroll color
+    window.addEventListener('scroll', () => {
+      document.querySelector('header').classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Section reveal animation
+    const sections = document.querySelectorAll('section');
+    const reveal = () => {
+      sections.forEach(sec => {
+        const rect = sec.getBoundingClientRect().top;
+        if (rect < window.innerHeight - 100) sec.classList.add('visible');
+      });
+    };
+    window.addEventListener('scroll', reveal);
+    reveal();
+
+    // About popup hover and focus behavior
+    (function() {
+      const aboutLi = document.getElementById('aboutMenu');
+      const aboutLink = document.getElementById('aboutLink');
+      const popup = document.getElementById('aboutPopup');
+      let hideTimeout = null;
+
+      function showPopup() {
+        clearTimeout(hideTimeout);
+        popup.classList.add('show');
+        popup.setAttribute('aria-hidden', 'false');
+        aboutLink.setAttribute('aria-expanded', 'true');
+      }
+
+      function scheduleHide(ms = 250) {
+        clearTimeout(hideTimeout);
+        hideTimeout = setTimeout(() => {
+          if (!aboutLi.matches(':hover') && !popup.matches(':hover')) {
+            popup.classList.remove('show');
+            popup.setAttribute('aria-hidden', 'true');
+            aboutLink.setAttribute('aria-expanded', 'false');
+          }
+        }, ms);
+      }
+
+      aboutLi.addEventListener('mouseenter', showPopup);
+      aboutLi.addEventListener('mouseleave', () => scheduleHide(220));
+      popup.addEventListener('mouseenter', showPopup);
+      popup.addEventListener('mouseleave', () => scheduleHide(220));
+    })();
+  </script>
+</body>
+</html>
